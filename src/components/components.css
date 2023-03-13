@@ -1,0 +1,136 @@
+* {
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.user-signin {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: darkgray;
+}
+
+.user-signin button {
+  margin: 20px 10px;
+}
+
+.login-portal {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  top: 25%;
+  width: 80%;
+  background-color: darkgray;
+  z-index: 1;
+  transform: translateX(-100vw);
+  transition: all 1s ease-in-out;
+}
+
+.login-portal.active {
+  display: flex;
+  transform: translateX(0);
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-form > * {
+  margin: 15px 10px;
+}
+
+.login-form input {
+  width: 70%;
+}
+
+.close-housing {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.close-housing > * {
+  margin: 20px 10px;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+button {
+  padding: 10px;
+}
+
+.err {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  color: #ca0b00;
+}
+
+.err > * {
+  padding: 2px;
+}
+
+.btn-housing,
+.search-housing,
+.data-housing,
+.fig-housing {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  padding: 10px 5px;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-housing input {
+  margin-right: 10px;
+  height: 30px;
+}
+
+.btn-housing button {
+  margin: 10px 5px;
+  font-weight: bold;
+}
+
+.selected {
+  background-color: rgb(180, 180, 180);
+}
+
+.data-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 50px;
+}
+
+.data-content > * {
+  font-size: 11pt;
+}
+
+.btn-housing em {
+  text-align: center;
+}
+
+.hide {
+  display: none;
+}
