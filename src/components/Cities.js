@@ -2,7 +2,6 @@
 
 import React from "react";
 import "./components.css";
-import USERS from "./Users";
 
 import {
   LineChart,
@@ -33,7 +32,8 @@ function Cities() {
    */
   let [user, setUser] = React.useState(null);
   let [locations, setLocations] = React.useState([]);
-  let [usersList, setUsersList] = React.useState(USERS);
+  let [usersList, setUsersList] = React.useState([]);
+  let [payload, setPayload] = React.useState({});
   let [weatherAPIURL, setWeatherAPIURL] = React.useState("");
   let [geolocAPIURL, setGeolocAPIURL] = React.useState("");
   let [selected, setSelected] = React.useState(0);
@@ -60,6 +60,54 @@ function Cities() {
   /**
    * React useEffect() hooks
    */
+
+  // obtains user information when the list is initially empty
+  React.useEffect(() => {
+    const initialPull = async () => {
+      try {
+        let getResponse = await fetch(`${FIREBASE_URL + "/usersInfo"}/.json`);
+        if (getResponse.status !== 200) {
+          console.log("Error during GET: " + getResponse.statusText);
+        } else {
+          let json = await getResponse.json();
+          if (json !== null) {
+            setUsersList(Object.keys(json).map((k) => json[k]));
+          } else {
+            console.log("EMPTY");
+          }
+        }
+      } catch (err) {
+        console.error("GET Error");
+        console.error(err);
+      }
+    };
+
+    if (usersList.length === 0) {
+      initialPull();
+    }
+  }, [usersList]);
+
+  // pushes data to the database with new user information
+  React.useEffect(() => {
+    const pushToDB = async () => {
+      try {
+        let postResponse = await fetch(`${FIREBASE_URL + "/usersInfo"}/.json`, {
+          method: "POST",
+          body: JSON.stringify(payload),
+        });
+        if (postResponse.status !== 200) {
+          console.log("Error during POST: " + postResponse.statusText);
+        }
+      } catch (err) {
+        console.error("POST Error");
+        console.error(err);
+      }
+    };
+
+    if (Object.keys(payload).length !== 0) {
+      pushToDB();
+    }
+  }, [payload]);
 
   // finds latitude and longitude given a city name
   React.useEffect(() => {
@@ -295,6 +343,7 @@ function Cities() {
       displayname: displaynameInput,
     };
     arrCpy.push(payload);
+    setPayload(payload);
     setUsersList(arrCpy);
 
     // reset form
